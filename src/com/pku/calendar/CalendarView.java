@@ -11,8 +11,8 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -21,11 +21,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 
-public class CalendarView implements OnTouchListener{
+public class CalendarView implements OnTouchListener,OnClickListener{
 	private Activity activity;
     /**
      * 日历布局ID
@@ -136,6 +137,9 @@ public class CalendarView implements OnTouchListener{
 		this.mCalendarMainLayout = relativeLayout;
 		display();
 	}
+	public boolean onTouch(View v, MotionEvent event) {
+        return mGesture.onTouchEvent(event);
+    }    
 	public void display(){
 		initView();
         updateStartDateForMonth();
@@ -158,10 +162,30 @@ public class CalendarView implements OnTouchListener{
      */
     private void initView() {
         mDayMessage = (TextView)mCalendarMainLayout.findViewById(R.id.day_message);
+        mPreMonthImg = (ImageView)mCalendarMainLayout.findViewById(R.id.left_arrow);
+        mNextMonthImg = (ImageView)mCalendarMainLayout.findViewById(R.id.right_arrow);
         mCalendarMainLayout = (RelativeLayout)mCalendarMainLayout.findViewById(R.id.calendar_main);
-//        mPreMonthImg = (ImageView) mCalendarMainLayout.findViewById(R.id.left_img);
-//        mNextMonthImg = (ImageView) mCalendarMainLayout.findViewById(R.id.right_img);
+        mPreMonthImg.setOnClickListener(this);
+        mNextMonthImg.setOnClickListener(this);
     }
+    @Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch(v.getId()){
+		case R.id.left_arrow:
+			viewFlipper.setInAnimation(slideRightIn);
+			viewFlipper.setOutAnimation(slideRightOut);
+			viewFlipper.showPrevious();
+			setPrevViewItem();			
+			break;
+		case R.id.right_arrow:
+			viewFlipper.setInAnimation(slideLeftIn);
+            viewFlipper.setOutAnimation(slideLeftOut);
+            viewFlipper.showNext();
+            setNextViewItem();
+			break;
+		}
+	}	
     /**
      * 用于加载到当前的日期的事件
      */
@@ -252,9 +276,9 @@ public class CalendarView implements OnTouchListener{
         lastGridView.setAdapter(lastGridAdapter);// 设置菜单Adapter
         lastGridView.setId(CAL_LAYOUT_ID);
 
-//        currentGridView.setOnTouchListener(activity);
-//        firstGridView.setOnTouchListener(activity);
-//        lastGridView.setOnTouchListener(activity);
+        currentGridView.setOnTouchListener(this);
+        firstGridView.setOnTouchListener(this);
+        lastGridView.setOnTouchListener(this);
 
         if (viewFlipper.getChildCount() != 0) {
             viewFlipper.removeAllViews();
@@ -267,7 +291,7 @@ public class CalendarView implements OnTouchListener{
         String s = calStartDate.get(Calendar.YEAR)
                 + "-"
                 + NumberHelper.LeftPad_Tow_Zero(calStartDate
-                .get(Calendar.MONTH) + 1);
+                .get(Calendar.MONTH) + 1)+"-"+NumberHelper.LeftPad_Tow_Zero(calStartDate.get(Calendar.DATE));
         mDayMessage.setText(s);
     }
 
@@ -406,7 +430,7 @@ public class CalendarView implements OnTouchListener{
                 if (txtDay.getTag() != null) {
                     Date date = (Date) txtDay.getTag();
                     calSelected.setTime(date);
-                    mDayMessage.setText(new CalendarUtil(calSelected).toString());
+                    mDayMessage.setText(new CalendarLunar().getLunarCalendar(date));
                     currentGridAdapter.setSelectedDate(calSelected);
                     currentGridAdapter.notifyDataSetChanged();
                     firstGridAdapter.setSelectedDate(calSelected);
@@ -422,10 +446,5 @@ public class CalendarView implements OnTouchListener{
             return false;
         }
     }
-	@Override
-	public boolean onTouch(View arg0, MotionEvent arg1) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }
