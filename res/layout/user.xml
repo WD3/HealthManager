@@ -20,4 +20,218 @@
             android:textSize="26sp" />
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@drawable/userinfo" />
+
+        <ImageView
+            android:id="@+id/user_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/userpic" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="228dp"
+            android:layout_marginTop="80dp"
+            android:text="张三"
+            android:textSize="28sp" />
+        <ImageView
+            android:id="@+id/gender_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="298dp"
+            android:layout_marginTop="84dp"
+            android:background="@drawable/mail" />
+        <TextView
+            android:id="@+id/user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="222dp"
+            android:layout_marginTop="118dp"
+            android:text="BD2014000001"
+            android:textSize="20sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#FFFFFF" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/preference_item"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/personalinfo_img"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:padding="5dp"
+                android:src="@drawable/personalinfo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/personalinfo_img"
+                android:padding="12dp"
+                android:text="个人信息"
+                android:textSize="26sp" />
+
+            <ImageView
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/r_arrow" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/preference_item"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/emergency_img"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:padding="5dp"
+                android:src="@drawable/emergency" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/emergency_img"
+                android:padding="12dp"
+                android:text="紧急联系人"
+                android:textSize="26sp" />
+
+            <ImageView
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/r_arrow" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:background="#9F9F9F" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/preference_item"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/doctor_img"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:padding="5dp"
+                android:src="@drawable/doctor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/doctor_img"
+                android:padding="12dp"
+                android:text="医生"
+                android:textSize="26sp" />
+
+            <ImageView
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/r_arrow" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#FFFFFF" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/preference_item"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/advice_img"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:padding="5dp"
+                android:src="@drawable/advice" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/advice_img"
+                android:padding="12dp"
+                android:text="建议"
+                android:textSize="26sp" />
+
+            <ImageView
+                android:layout_marginLeft="268dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/newadvice" />
+
+            <ImageView
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/r_arrow" />
+        </RelativeLayout>
+    </LinearLayout>
+
 </LinearLayout>

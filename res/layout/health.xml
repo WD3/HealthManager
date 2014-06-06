@@ -20,4 +20,318 @@
             android:textSize="26sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ecg"
+                android:clickable="true" >
+
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/orange_item" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:text="心电"
+                    android:textColor="#ffffff"
+                    android:textSize="36sp" />
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="128dp"
+                    android:layout_height="138dp"
+                    android:background="@drawable/ecg_img" 
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="262dp"
+                    android:text="正常"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="98dp"
+                    android:layout_marginTop="262dp"
+                    android:text="心率："
+                    android:textColor="#ffffff"
+                    android:textSize="22sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="168dp"
+                    android:layout_marginTop="262dp"
+                    android:text="80"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/counter"
+                android:layout_marginTop="10dp" >
+
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/green_item" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:text="计步"
+                    android:textColor="#ffffff"
+                    android:textSize="36sp" />
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="108dp"
+                    android:layout_height="128dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/counter_img" 
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="242dp"
+                    android:text="步数："
+                    android:textColor="#ffffff"
+                    android:textSize="22sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="82dp"
+                    android:layout_marginTop="242dp"
+                    android:text="23416"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="280dp"
+                    android:text="完成："
+                    android:textColor="#ffffff"
+                    android:textSize="22sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="82dp"
+                    android:layout_marginTop="280dp"
+                    android:text="53%"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="222dp"
+                android:id="@+id/bloodpressure" >
+
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/blue_item" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:text="血压"
+                    android:textColor="#ffffff"
+                    android:textSize="30sp" />
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="96dp"
+                    android:layout_height="88dp"
+                    android:background="@drawable/bloodpressure_img" 
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="186dp"
+                    android:text="高压："
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginTop="186dp"
+                    android:text="118"
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="128dp"
+                    android:layout_marginTop="186dp"
+                    android:text="低压："
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="188dp"
+                    android:layout_marginTop="186dp"
+                    android:text="80"
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/scale">
+
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/pink_item" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:text="体重"
+                    android:textColor="#ffffff"
+                    android:textSize="30sp" />
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="96dp"
+                    android:layout_height="88dp"
+                    android:background="@drawable/scale_img" 
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginTop="160dp"
+                    android:text="标准"
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="118dp"
+                    android:layout_marginTop="160dp"
+                    android:text="上次："
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="178dp"
+                    android:layout_marginTop="160dp"
+                    android:text="80"
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="222dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/oximeter" >
+
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/yellow_item" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:text="血氧"
+                    android:textColor="#ffffff"
+                    android:textSize="30sp" />
+                <ImageView
+                    android:id="@+id/bloodpressure_img"
+                    android:layout_width="136dp"
+                    android:layout_height="108dp"
+                    android:background="@drawable/oximeter_img" 
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginTop="186dp"
+                    android:text="正常"
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="118dp"
+                    android:layout_marginTop="186dp"
+                    android:text="上次："
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="178dp"
+                    android:layout_marginTop="186dp"
+                    android:text="80"
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

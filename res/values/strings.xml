@@ -5,5 +5,21 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_health">Health</string>
+    <string name="city">城市</string>
+    <string name="province">省份</string>
+    <string name="today_wea">今日天气</string>
+    <string name="qiweng">气温：</string>
+    <string name="jinri">今日天气实况</string>
+    <string name="fengli">风力：</string>
+    <string name="shidu">湿度：</string>
+    <string name="kongqi">空气质量：</string>
+    <string name="zhiwai">紫外线强度：</string>
+    <string name="city_str">城</string>
+    <string name="xiaotieshi">今日小贴士今日小贴士今日小贴士今日小贴士今日小贴士</string>
+    <string name="title_activity_counter">CounterActivity</string>
+    <string name="title_activity_scale">ScaleActivity</string>
+    <string name="title_activity_oximeter">OximeterActivity</string>
+    <string name="title_activity_bloodpressure">BloodpressureActivity</string>
+    <string name="title_activity_empty">EmptyActivity</string>
 
 </resources>

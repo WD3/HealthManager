@@ -6,15 +6,19 @@ import java.util.Date;
 import com.pku.calendar.CalendarLunar;
 import com.pku.calendar.CalendarUtil;
 import com.pku.calendar.CalendarView;
+import com.pku.calendar.NumberHelper;
+import com.pku.weather.WeatherWebService;
 
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
@@ -32,9 +36,14 @@ public class MainActivity extends TabActivity implements OnClickListener{
 	private TextView tv_date;
 	private LinearLayout dayLayout;
 	private RelativeLayout home;
+	private FrameLayout counterLayout;
+	private FrameLayout scaleLayout;
+	private FrameLayout oximeterLayout;
+	private FrameLayout bloodpressureLayout;
 	private LinearLayout monthLayout;
 	private CalendarView calendarView;
 	private CalendarLunar calendarLunar;
+	private WeatherWebService weatherWebService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,14 @@ public class MainActivity extends TabActivity implements OnClickListener{
 		tv_cyclical = (TextView)findViewById(R.id.cyclical);
 		tv_lunar = (TextView)findViewById(R.id.lunar);
 		tv_date = (TextView)findViewById(R.id.date);
+		counterLayout = (FrameLayout)findViewById(R.id.counter);
+		counterLayout.setOnClickListener(this);
+		scaleLayout = (FrameLayout)findViewById(R.id.scale);
+		scaleLayout.setOnClickListener(this);
+		oximeterLayout = (FrameLayout)findViewById(R.id.oximeter);
+		oximeterLayout.setOnClickListener(this);
+		bloodpressureLayout = (FrameLayout)findViewById(R.id.bloodpressure);
+		bloodpressureLayout.setOnClickListener(this);
 		dayLayout = (LinearLayout)findViewById(R.id.calendar_day);
 		monthLayout = (LinearLayout)findViewById(R.id.calendar_month);		
 		home = (RelativeLayout)findViewById(R.id.home);
@@ -84,12 +101,13 @@ public class MainActivity extends TabActivity implements OnClickListener{
 		monthLayout.setVisibility(View.INVISIBLE);
 		calendarView = new CalendarView(this,home);
 		calendarLunar = new CalendarLunar();
+		weatherWebService = new WeatherWebService(home,this);
 	}
 	public void onStart(){
 		super.onStart();
 		Date date = new Date();
 		tv_solar.setText(CalendarUtil.getCurrentDay());
-		tv_date.setText(""+date.getDate());
+		tv_date.setText(""+NumberHelper.LeftPad_Tow_Zero(date.getDate()));
 		tv_cyclical.setText("农历："+CalendarUtil.cyclical(date.getYear()+1900)+"年 "+CalendarUtil.cyclicalm(date.getMonth())+"月");
 		tv_lunar.setText(calendarLunar.getLunarCalendar(date));
 	}
@@ -111,6 +129,26 @@ public class MainActivity extends TabActivity implements OnClickListener{
 		case R.id.day:
 			dayLayout.setVisibility(View.VISIBLE);
 			monthLayout.setVisibility(View.INVISIBLE);
+			break;
+		case R.id.bloodpressure:
+			Intent i1 = new Intent(this,HealthActivity.class);
+			i1.putExtra("type", 0);
+			this.startActivity(i1);
+			break;
+		case R.id.counter:
+			Intent i2 = new Intent(this,HealthActivity.class);
+			i2.putExtra("type", 1);
+			this.startActivity(i2);
+			break;
+		case R.id.scale:
+			Intent i3 = new Intent(this,HealthActivity.class);
+			i3.putExtra("type", 2);
+			this.startActivity(i3);
+			break;		
+		case R.id.oximeter:
+			Intent i4 = new Intent(this,HealthActivity.class);
+			i4.putExtra("type", 3);
+			this.startActivity(i4);
 			break;
 		}
 	}

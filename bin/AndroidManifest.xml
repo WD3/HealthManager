@@ -4,9 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+    <uses-sdk android:minSdkVersion="8" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +24,33 @@
             android:name="com.pku.healthmanager.Health"
             android:label="@string/title_activity_health" >
         </activity>
+        <activity
+            android:name="com.pku.healthmanager.CounterActivity"
+            android:label="@string/title_activity_counter" >
+        </activity>
+        <activity
+            android:name="com.pku.healthmanager.ScaleActivity"
+            android:label="@string/title_activity_scale" >
+        </activity>
+        <activity
+            android:name="com.pku.healthmanager.OximeterActivity"
+            android:label="@string/title_activity_oximeter" >
+        </activity>
+        <activity
+            android:name="com.pku.healthmanager.BloodpressureActivity"
+            android:label="@string/title_activity_bloodpressure" >
+        </activity>
+        <activity
+            android:name="com.pku.healthmanager.HealthActivity"
+            android:label="@string/title_activity_health" >
+        </activity>
+        <activity
+            android:name="com.pku.healthmanager.EmptyActivity"
+            android:label="@string/title_activity_empty" >
+        </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
 
 </manifest>
