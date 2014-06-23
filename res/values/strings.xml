@@ -21,5 +21,7 @@
     <string name="title_activity_oximeter">OximeterActivity</string>
     <string name="title_activity_bloodpressure">BloodpressureActivity</string>
     <string name="title_activity_empty">EmptyActivity</string>
+    <string name="title_activity_counter_setting">CounterSettingActivity</string>
+    <string name="title_activity_ajahg">Ajahg</string>
 
 </resources>

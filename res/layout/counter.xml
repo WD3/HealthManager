@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/counterxml"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -31,7 +30,7 @@
             android:layout_weight="4" >
 
             <TextView
-                android:id="@+id/bloodpressure"
+                android:id="@+id/counter_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -43,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/bloodpressure"
+                android:layout_below="@id/counter_name"
                 android:layout_centerHorizontal="true"
                 android:text="Pedometer Manager"
                 android:textColor="#222222"
@@ -77,8 +76,9 @@
             android:textSize="26sp" />
 
         <ImageView
+            android:id="@+id/counter_connect"
             android:layout_width="60dp"
-            android:layout_height="30dp"
+            android:layout_height="28dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="160dp"
             android:background="@drawable/split_right" />
@@ -92,6 +92,7 @@
             android:textSize="26sp" />
 
         <ImageView
+            android:id="@+id/counter_battery"
             android:layout_width="50dp"
             android:layout_height="38dp"
             android:layout_centerVertical="true"
@@ -127,6 +128,7 @@
             android:textSize="26sp" />
 
         <TextView
+            android:id="@+id/counter_currentSteps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="286dp"
@@ -144,6 +146,7 @@
             android:textSize="26sp" />
 
         <TextView
+            android:id="@+id/counter_targetSteps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="286dp"
@@ -173,6 +176,7 @@
             android:textSize="26sp" />
 
         <TextView
+            android:id="@+id/counter_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="326dp"
@@ -180,12 +184,23 @@
             android:textColor="#3C9377"
             android:textSize="26sp" />
 
-        <ImageView
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            android:padding="20dp"
+            android:max="100" />
+
+        <!--
+             <ImageView
             android:layout_width="match_parent"
             android:layout_height="62dp"
-            android:layout_alignRight="@+id/textView1"
             android:layout_marginTop="30dp"
-            android:background="@drawable/progress" />
+            android:background="@drawable/progress" />-->
     </RelativeLayout>
 
     <View
@@ -207,7 +222,7 @@
             android:clickable="true" >
 
             <ImageView
-                android:id="@+id/advice_img"
+                android:id="@+id/alert_img"
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:layout_centerVertical="true"
@@ -219,7 +234,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/advice_img"
+                android:layout_toRightOf="@id/alert_img"
                 android:padding="12dp"
                 android:text="智能提醒"
                 android:textSize="26sp" />
@@ -237,7 +252,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#9F9F9F" />
-<LinearLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="26dp"
@@ -260,12 +276,13 @@
             android:layout_height="60dp"
             android:layout_weight="1" >
 
-            <!-- <ImageView
+            <!--
+                 <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/ieee" /> -->
+                android:src="@drawable/ieee" />-->
         </RelativeLayout>
 
         <RelativeLayout
@@ -281,4 +298,5 @@
                 android:src="@drawable/pku" />
         </RelativeLayout>
     </LinearLayout>
+
 </LinearLayout>

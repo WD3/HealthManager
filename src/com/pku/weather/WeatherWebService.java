@@ -94,84 +94,62 @@ public class WeatherWebService {
 					R.layout.city_layout, null);
 
 			// 省份Spinner
-			province_spinner = (Spinner) view
-					.findViewById(R.id.province_spinner);
+			province_spinner = (Spinner) view.findViewById(R.id.province_spinner);
 			// 城市Spinner
 			city_spinner = (Spinner) view.findViewById(R.id.city_spinner);
 
 			// 省份列表
 			provinces = WebServiceUtil.getProvinceList();
-
-			ArrayAdapter adapter = new ArrayAdapter(context,
-					android.R.layout.simple_spinner_item, provinces);
+			ArrayAdapter adapter = new ArrayAdapter(context,android.R.layout.simple_spinner_item, provinces);
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 			province_spinner.setAdapter(adapter);
 			// 省份Spinner监听器
-			province_spinner
-					.setOnItemSelectedListener(new OnItemSelectedListener() {
+			province_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> arg0,View arg1, int position, long arg3) {
+					citys = WebServiceUtil.getCityListByProvince(provinces.get(position));
+					ArrayAdapter adapter1 = new ArrayAdapter(context,android.R.layout.simple_spinner_item, citys);
+					adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					city_spinner.setAdapter(adapter1);
+				}
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
 
-						@Override
-						public void onItemSelected(AdapterView<?> arg0,
-								View arg1, int position, long arg3) {
-
-							citys = WebServiceUtil
-									.getCityListByProvince(provinces
-											.get(position));
-							ArrayAdapter adapter1 = new ArrayAdapter(context,
-									android.R.layout.simple_spinner_item, citys);
-							adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-							city_spinner.setAdapter(adapter1);
-
-						}
-
-						@Override
-						public void onNothingSelected(AdapterView<?> arg0) {
-
-						}
-					});
-
+				}
+			});
+						
 			// 城市Spinner监听器
-			city_spinner
-					.setOnItemSelectedListener(new OnItemSelectedListener() {
+			city_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> arg0,View arg1, int position, long arg3) {
+					city_str = citys.get(position);
+				}
 
-						@Override
-						public void onItemSelected(AdapterView<?> arg0,
-								View arg1, int position, long arg3) {
-							city_str = citys.get(position);
-						}
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
 
-						@Override
-						public void onNothingSelected(AdapterView<?> arg0) {
-
-						}
-					});
-
+				}
+			});					
 			// 选择城市对话框
 			AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 			dialog.setTitle("请选择所属城市");
 			dialog.setView(view);
-			dialog.setPositiveButton("确定",
-					new DialogInterface.OnClickListener() {
+			dialog.setPositiveButton("确定",new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					city_text.setText(city_str);
+					writeSharpPreference(city_str);
+					refresh(city_str);
+				}
+			});
+						
+			dialog.setNegativeButton("取消",new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							city_text.setText(city_str);
-							writeSharpPreference(city_str);
-							refresh(city_str);
-
-						}
-					});
-			dialog.setNegativeButton("取消",
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-
-						}
-					});
-
+				}
+			});						
 			dialog.show();
 
 			break;

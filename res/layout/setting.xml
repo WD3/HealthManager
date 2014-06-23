@@ -28,6 +28,7 @@
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/bloodpressure_setting"
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:layout_marginLeft="16dp"
@@ -69,6 +70,7 @@
             android:background="#9F9F9F" />
 
         <RelativeLayout
+            android:id="@+id/ecg_setting"
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:layout_marginLeft="16dp"
@@ -110,6 +112,7 @@
             android:background="#9F9F9F" />
 
         <RelativeLayout
+            android:id="@+id/counter_setting"
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:layout_marginLeft="16dp"
@@ -151,6 +154,7 @@
             android:background="#9F9F9F" />
 
         <RelativeLayout
+            android:id="@+id/scale_setting"
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:layout_marginLeft="16dp"
@@ -192,6 +196,7 @@
             android:background="#9F9F9F" />
 
         <RelativeLayout
+            android:id="@+id/oximeter_setting"
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:layout_marginLeft="16dp"
@@ -230,10 +235,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:background="#FFFFFF" >
 
         <RelativeLayout
+            android:id="@+id/server_setting"
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:layout_marginLeft="16dp"
@@ -265,6 +271,41 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/r_arrow" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#FFFFFF" >
+
+       <RelativeLayout
+            android:id="@+id/exit"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:clickable="true"
+            android:background="@drawable/preference_item" >
+
+            <ImageView
+                android:id="@+id/exit_img"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:padding="5dp"
+                android:src="@drawable/exit_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/exit_img"
+                android:padding="12dp"
+                android:text="退出"
+                android:textSize="26sp" />
+
         </RelativeLayout>
     </LinearLayout>
 

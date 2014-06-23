@@ -1,19 +1,24 @@
 package com.pku.healthmanager;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import com.pku.calendar.CalendarLunar;
 import com.pku.calendar.CalendarUtil;
 import com.pku.calendar.CalendarView;
 import com.pku.calendar.NumberHelper;
+import com.pku.countermanager.CounterSettingActivity;
 import com.pku.weather.WeatherWebService;
 
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,8 +39,12 @@ public class MainActivity extends TabActivity implements OnClickListener{
 	private TextView tv_cyclical;
 	private TextView tv_lunar;
 	private TextView tv_date;
+	private static TextView tv_currentSteps;
+	private static TextView tv_progress;
 	private LinearLayout dayLayout;
 	private RelativeLayout home;
+	private RelativeLayout counter_setting;
+	private RelativeLayout exitLayout;
 	private FrameLayout counterLayout;
 	private FrameLayout scaleLayout;
 	private FrameLayout oximeterLayout;
@@ -43,6 +52,7 @@ public class MainActivity extends TabActivity implements OnClickListener{
 	private LinearLayout monthLayout;
 	private CalendarView calendarView;
 	private CalendarLunar calendarLunar;
+	public static SharedPreferences sp;
 	private WeatherWebService weatherWebService;
 
 	@Override
@@ -86,6 +96,8 @@ public class MainActivity extends TabActivity implements OnClickListener{
 		tv_cyclical = (TextView)findViewById(R.id.cyclical);
 		tv_lunar = (TextView)findViewById(R.id.lunar);
 		tv_date = (TextView)findViewById(R.id.date);
+		tv_currentSteps = (TextView)findViewById(R.id.health_currentSteps);
+		tv_progress = (TextView)findViewById(R.id.health_progress);
 		counterLayout = (FrameLayout)findViewById(R.id.counter);
 		counterLayout.setOnClickListener(this);
 		scaleLayout = (FrameLayout)findViewById(R.id.scale);
@@ -94,6 +106,10 @@ public class MainActivity extends TabActivity implements OnClickListener{
 		oximeterLayout.setOnClickListener(this);
 		bloodpressureLayout = (FrameLayout)findViewById(R.id.bloodpressure);
 		bloodpressureLayout.setOnClickListener(this);
+		counter_setting = (RelativeLayout)findViewById(R.id.counter_setting);
+		counter_setting.setOnClickListener(this);
+		exitLayout = (RelativeLayout)findViewById(R.id.exit);
+		exitLayout.setOnClickListener(this);
 		dayLayout = (LinearLayout)findViewById(R.id.calendar_day);
 		monthLayout = (LinearLayout)findViewById(R.id.calendar_month);		
 		home = (RelativeLayout)findViewById(R.id.home);
@@ -102,14 +118,15 @@ public class MainActivity extends TabActivity implements OnClickListener{
 		calendarView = new CalendarView(this,home);
 		calendarLunar = new CalendarLunar();
 		weatherWebService = new WeatherWebService(home,this);
+		sp = PreferenceManager.getDefaultSharedPreferences(this);	
+		this.startService(new Intent(this,PlayService.class));
 	}
 	public void onStart(){
-		super.onStart();
-		Date date = new Date();
-		tv_solar.setText(CalendarUtil.getCurrentDay());
-		tv_date.setText(""+NumberHelper.LeftPad_Tow_Zero(date.getDate()));
-		tv_cyclical.setText("农历："+CalendarUtil.cyclical(date.getYear()+1900)+"年 "+CalendarUtil.cyclicalm(date.getMonth())+"月");
-		tv_lunar.setText(calendarLunar.getLunarCalendar(date));
+		super.onStart();		
+		display();
+	}
+	public void onDestroy(){
+		super.onDestroy();
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -150,7 +167,50 @@ public class MainActivity extends TabActivity implements OnClickListener{
 			i4.putExtra("type", 3);
 			this.startActivity(i4);
 			break;
+		case R.id.counter_setting:
+			Intent i5 = new Intent(this,CounterSettingActivity.class);
+			this.startActivity(i5);
+			break;
+		case R.id.exit:
+			this.stopService(new Intent(this,PlayService.class));
+			break;
 		}
 	}
-	
+	public static void SendMessage(Handler handler, int i) {
+		Message msg = handler.obtainMessage();
+		msg.what = i;
+		handler.sendMessage(msg);
+	}
+
+	public static Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				tv_currentSteps.setText(Variable.currentSteps);
+				tv_progress.setText(Variable.percent);
+				break;
+			}
+		}
+	};
+	public void display(){
+		Date date = new Date();
+		tv_solar.setText(CalendarUtil.getCurrentDay());
+		tv_date.setText(""+NumberHelper.LeftPad_Tow_Zero(date.getDate()));
+		tv_cyclical.setText("农历："+CalendarUtil.cyclical(date.getYear()+1900)+"年 "+CalendarUtil.cyclicalm(date.getMonth())+"月");
+		tv_lunar.setText(calendarLunar.getLunarCalendar(date));
+		
+		String originaldate = MainActivity.sp.getString("originaldate", "");
+		Date mDate = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("MM-dd");
+		String currentdate = format.format(mDate);
+		if(!currentdate.equals(originaldate)){
+			MainActivity.sp.edit().putString("originaldate", currentdate)
+			.putString("todaysteps","0").putString("hoursteps", "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
+			.putString("percent", "0%").commit();
+		}			
+		Variable.currentSteps = MainActivity.sp.getString("todaysteps", "0");
+		Variable.percent = MainActivity.sp.getString("percent","0%");
+		tv_currentSteps.setText(Variable.currentSteps);
+		tv_progress.setText(Variable.percent);		
+	}
 }

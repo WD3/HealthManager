@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/counterxml"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" >
+
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="20dp"
+                android:src="@drawable/pku" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/counter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="计步器"
+                android:textColor="#222222"
+                android:textSize="36sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/counter_name"
+                android:layout_centerHorizontal="true"
+                android:text="Pedometer Manager"
+                android:textColor="#222222"
+                android:textSize="22sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9F9F9F" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="19dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="38dp"
+            android:text="设备号："
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/counter_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="38dp"
+            android:text="000EEACA05F9"
+            android:textSize="26sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:background="#9F9F9F" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="19dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="38dp"
+            android:text="紧急联系人："
+            android:textSize="26sp" />
+
+        <EditText
+            android:id="@+id/emergencyTel_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="38dp"
+            android:background="@null"
+            android:inputType="numberDecimal"
+            android:maxLength="11"
+            android:text="13800010001"
+            android:textSize="26sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:background="#9F9F9F" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="19dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="38dp"
+            android:text="运动量预设："
+            android:textSize="26sp" />
+
+        <EditText
+            android:id="@+id/targetSteps_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="72dp"
+            android:background="@null"
+            android:inputType="numberDecimal"
+            android:maxLength="11"
+            android:text="30000"
+            android:textSize="26sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="38dp"
+            android:text="步"
+            android:textSize="26sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:background="#9F9F9F" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="19dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="38dp"
+            android:text="久坐时间："
+            android:textSize="26sp" />
+
+        <EditText
+            android:id="@+id/sedentariness_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="98dp"
+            android:background="@null"
+            android:inputType="numberDecimal"
+            android:maxLength="11"
+            android:text="30"
+            android:textSize="26sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="38dp"
+            android:text="分钟"
+            android:textSize="26sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9F9F9F" />
+
+    <Button
+        android:id="@+id/counter_discovery"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="搜索设备"
+        android:textSize="32sp" 
+        android:padding="26dp"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

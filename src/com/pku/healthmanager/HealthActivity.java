@@ -9,9 +9,10 @@ package com.pku.healthmanager;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.pku.countermanager.CounterActivity;
 import android.app.Activity;
 import android.app.LocalActivityManager;
+import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,174 +24,83 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-/**
- * 
- * @author qianj
- * @version 1.0.0
- * @2012-5-31 下午2:02:15
- */
-public class HealthActivity extends Activity {
 
-	List<View> listViews;
-
-	Context context = null;
-
-	LocalActivityManager manager = null;
-
-	TabHost tabHost = null;
-
-	private ViewPager pager = null;
+public class HealthActivity extends TabActivity {
+	static TabHost tabHost = null;
+	static int i;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.viewpager);
-		
-		context = HealthActivity.this;
-		
-		pager  = (ViewPager) findViewById(R.id.viewpager);
-		
-		//定放一个放view的list，用于存放viewPager用到的view
-		listViews = new ArrayList<View>();
-		
-		manager = new LocalActivityManager(this, true);
-		manager.dispatchCreate(savedInstanceState);
-		
-		Intent i1 = new Intent(context, BloodpressureActivity.class);
-		listViews.add(getView("A", i1));
-		Intent i2 = new Intent(context, CounterActivity.class);
-		listViews.add(getView("B", i2));
-		Intent i3 = new Intent(context, ScaleActivity.class);
-		listViews.add(getView("C", i3));
-		Intent i4 = new Intent(context, OximeterActivity.class);
-		listViews.add(getView("D", i4));
-
-		tabHost = (TabHost) findViewById(R.id.tabhost);
-		tabHost.setup();
-		tabHost.setup(manager);
-		
-		
-		//这儿主要是自定义一下tabhost中的tab的样式
-//		RelativeLayout tabIndicator1 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.counter, null);  
-//		TextView tvTab1 = (TextView)tabIndicator1.findViewById(R.id.tv_title);
-//		tvTab1.setText("第一页");
-//		
-//		RelativeLayout tabIndicator2 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.tabwidget,null);  
-//		TextView tvTab2 = (TextView)tabIndicator2.findViewById(R.id.tv_title);
-//		tvTab2.setText("第二页");
-//		
-//		RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.tabwidget,null);  
-//		TextView tvTab3 = (TextView)tabIndicator3.findViewById(R.id.tv_title);
-//		tvTab3.setText("第三页");
-		
-		Intent intent = new Intent(context,EmptyActivity.class);
-		//注意这儿Intent中的activity不能是自身 比如“A”对应的是T1Activity，后面intent就new的T3Activity的。
-		tabHost.addTab(tabHost.newTabSpec("A").setIndicator("血压").setContent(intent));
-		tabHost.addTab(tabHost.newTabSpec("B").setIndicator("计步").setContent(intent));
-		tabHost.addTab(tabHost.newTabSpec("C").setIndicator("体重").setContent(intent));
-		tabHost.addTab(tabHost.newTabSpec("D").setIndicator("血氧").setContent(intent));
-		
-		pager .setAdapter(new MyPageAdapter(listViews));
-		pager .setOnPageChangeListener(new OnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				//当viewPager发生改变时，同时改变tabhost上面的currentTab
-				tabHost.setCurrentTab(position);
-			}
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-			}
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-			}
-		});
-		
-		
-	 //点击tabhost中的tab时，要切换下面的viewPager
-	 tabHost.setOnTabChangedListener(new OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-            	
-            	if ("A".equals(tabId)) {
-                    pager.setCurrentItem(0);
-                } 
-                if ("B".equals(tabId)) {
-                	
-                    pager.setCurrentItem(1);
-                } 
-                if ("C".equals(tabId)) {
-                    pager.setCurrentItem(2);
-                } 
-                if ("D".equals(tabId)) {
-                    pager.setCurrentItem(3);
-                } 
-            }
-        });
-	 
-	 Intent i = getIntent();   
-	 //获取数据   
-	 int type = i.getIntExtra("type", 0);
-	 tabHost.setCurrentTab(type);		
+		setContentView(R.layout.healthtab);
+		init();
+		Intent i = getIntent();
+		// 获取数据
+		int type = i.getIntExtra("type", 0);
+		tabHost.setCurrentTab(type);
 	}
 
-	private View getView(String id, Intent intent) {
-		return manager.startActivity(id, intent).getDecorView();
+	private void init() {
+		tabHost = getTabHost();
+		// 页面1
+		TabSpec spec1 = tabHost.newTabSpec("1");
+		spec1.setIndicator("血压");
+		Intent intent1 = new Intent(this, BloodpressureActivity.class);
+		spec1.setContent(intent1);
+
+		// 页面2
+		TabSpec spec2 = tabHost.newTabSpec("2");
+		spec2.setIndicator("计步");
+		Intent intent2 = new Intent(this, CounterActivity.class);
+		spec2.setContent(intent2);
+
+		// 页面3
+		TabSpec spec3 = tabHost.newTabSpec("3");
+		spec3.setIndicator("体重");
+		Intent intent3 = new Intent(this, ScaleActivity.class);
+		spec3.setContent(intent3);
+
+		// 页面4
+		TabSpec spec4 = tabHost.newTabSpec("4");
+		spec4.setIndicator("血氧");
+		Intent intent4 = new Intent(this, OximeterActivity.class);
+		spec4.setContent(intent4);
+
+		tabHost.addTab(spec1);
+		tabHost.addTab(spec2);
+		tabHost.addTab(spec3);
+		tabHost.addTab(spec4);
+	}
+	public static void setTab(int type){
+		tabHost.setCurrentTab(type);	
 	}
 
-	private class MyPageAdapter extends PagerAdapter {
-		
-		private List<View> list;
+	/**
+	 * 显示下一个页面
+	 */
+	public static void showNext() {
+		// 三元表达式控制3个页面的循环.
+		i = tabHost.getCurrentTab();
+		if(i == 3) i=-1;
+		tabHost.setCurrentTab(i+1);
+	}
 
-		private MyPageAdapter(List<View> list) {
-			this.list = list;
-		}
-
-		@Override
-        public void destroyItem(View view, int position, Object arg2) {
-            ViewPager pViewPager = ((ViewPager) view);
-            pViewPager.removeView(list.get(position));
-        }
-
-        @Override
-        public void finishUpdate(View arg0) {
-        }
-
-        @Override
-        public int getCount() {
-            return list.size();
-        }
-
-        @Override
-        public Object instantiateItem(View view, int position) {
-            ViewPager pViewPager = ((ViewPager) view);
-            pViewPager.addView(list.get(position));
-            return list.get(position);
-        }
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == arg1;
-        }
-
-        @Override
-        public void restoreState(Parcelable arg0, ClassLoader arg1) {
-        }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public void startUpdate(View arg0) {
-        }
-
+	/**
+	 * 显示前一个页面
+	 */
+	public static void showPre() {
+		// 三元表达式控制3个页面的循环.
+		i = tabHost.getCurrentTab();
+		if(i == 0) i=4;
+		tabHost.setCurrentTab(i-1);
 	}
 }
