@@ -329,17 +329,151 @@ public final class R {
         public static final int scale=0x7f090008;
     }
     public static final class string {
+        public static final int ASSOCIATION_ERROR=0x7f07004b;
+        public static final int CONNECTED_ASSOCIATED_CONFIGURING_CHECKING_CONFIG=0x7f070032;
+        public static final int CONNECTED_ASSOCIATED_CONFIGURING_WAITING=0x7f070031;
+        public static final int CONNECTED_ASSOCIATED_OPERATING=0x7f070033;
+        public static final int CONNECTED_ASSOCIATING=0x7f070030;
+        public static final int CONNECTED_DISASSOCIATING=0x7f070034;
+        public static final int CONNECTED_UNASSOCIATED=0x7f07002f;
+        /**  State Section 
+         */
+        public static final int DISCONNECTED=0x7f07002e;
+        public static final int INVALID_ARGUMENTS=0x7f07004c;
+        public static final int INVALID_ATTRIBUTE=0x7f070048;
+        /**  Locations 
+         */
+        public static final int MDC_AI_LOCATION_KITCHEN=0x7f07007e;
+        public static final int MDC_AI_TYPE_SENSOR_TEMP=0x7f07007f;
+        public static final int MDC_ATTR_ENUM_OBS_VAL_SIMP_BIT_STR=0x7f070051;
+        /**  Measure Attributes Types Section 
+         */
+        public static final int MDC_ATTR_ID_HANDLE=0x7f07004d;
+        public static final int MDC_ATTR_ID_TYPE=0x7f07004e;
+        public static final int MDC_ATTR_TIME_STAMP_ABS=0x7f070050;
+        public static final int MDC_ATTR_UNIT_CODE=0x7f07004f;
+        public static final int MDC_BODY_FAT=0x7f07007c;
+        public static final int MDC_CONC_GLU_ARTERIAL_PLASMA=0x7f070074;
+        public static final int MDC_CONC_GLU_ARTERIAL_WHOLEBLOOD=0x7f070073;
+        public static final int MDC_CONC_GLU_CAPILLARY_PLASMA=0x7f070070;
+        public static final int MDC_CONC_GLU_CAPILLARY_WHOLEBLOOD=0x7f07006f;
+        public static final int MDC_CONC_GLU_CONTROL=0x7f070075;
+        public static final int MDC_CONC_GLU_GEN=0x7f07006e;
+        public static final int MDC_CONC_GLU_ISF=0x7f070076;
+        public static final int MDC_CONC_GLU_VENOUS_PLASMA=0x7f070072;
+        public static final int MDC_CONC_GLU_VENOUS_WHOLEBLOOD=0x7f070071;
+        public static final int MDC_CONC_HBA1C=0x7f070077;
+        public static final int MDC_DEV_SPEC_PROFILE_AI_ACTIVITY_HUB=0x7f070087;
+        public static final int MDC_DEV_SPEC_PROFILE_AI_MED_MINDER=0x7f070088;
+        public static final int MDC_DEV_SPEC_PROFILE_BP=0x7f070081;
+        public static final int MDC_DEV_SPEC_PROFILE_GLUCOSE=0x7f070084;
+        public static final int MDC_DEV_SPEC_PROFILE_HF_CARDIO=0x7f070085;
+        public static final int MDC_DEV_SPEC_PROFILE_HF_STRENGTH=0x7f070086;
+        /**  Device Specialization Profile 
+         */
+        public static final int MDC_DEV_SPEC_PROFILE_PULS_OXIM=0x7f070080;
+        public static final int MDC_DEV_SPEC_PROFILE_SCALE=0x7f070083;
+        public static final int MDC_DEV_SPEC_PROFILE_TEMP=0x7f070082;
+        public static final int MDC_DIM_BEAT_PER_MIN=0x7f07005c;
+        public static final int MDC_DIM_DAY=0x7f07005b;
+        public static final int MDC_DIM_DEGC=0x7f070060;
+        public static final int MDC_DIM_HR=0x7f07005a;
+        public static final int MDC_DIM_KILO_G=0x7f070056;
+        public static final int MDC_DIM_KILO_PASCAL=0x7f07005d;
+        public static final int MDC_DIM_MILLI_G=0x7f070057;
+        public static final int MDC_DIM_MILLI_G_PER_DL=0x7f070058;
+        public static final int MDC_DIM_MILLI_L=0x7f070054;
+        public static final int MDC_DIM_MILLI_MOLE_PER_L=0x7f07005f;
+        public static final int MDC_DIM_MIN=0x7f070059;
+        public static final int MDC_DIM_MMHG=0x7f07005e;
+        /**  Measure Attributes Values Section 
+ Dimensions 
+         */
+        public static final int MDC_DIM_PERCENT=0x7f070053;
+        public static final int MDC_DIM_X_G=0x7f070055;
+        public static final int MDC_MASS_BODY_ACTUAL=0x7f07007b;
+        public static final int MDC_METRIC_NOS=0x7f07007d;
+        public static final int MDC_MODALITY_FAST=0x7f07008a;
+        public static final int MDC_MODALITY_SLOW=0x7f07008b;
+        public static final int MDC_MODALITY_SPOT=0x7f07008c;
+        public static final int MDC_PRESS_BD_NONINV=0x7f070063;
+        public static final int MDC_PRESS_BD_NONINV_DIA=0x7f070065;
+        public static final int MDC_PRESS_BD_NONINV_MEAN=0x7f070066;
+        public static final int MDC_PRESS_BD_NONINV_SYS=0x7f070064;
+        public static final int MDC_PULS_OXIM_DEV_STATUS=0x7f07006d;
+        public static final int MDC_PULS_OXIM_PERF_REL=0x7f070069;
+        public static final int MDC_PULS_OXIM_PLETH=0x7f07006a;
+        public static final int MDC_PULS_OXIM_PULS_CHAR=0x7f07006c;
+        /**  Medical supervisory control and data acquisition 
+         */
+        public static final int MDC_PULS_OXIM_PULS_RATE=0x7f070061;
+        public static final int MDC_PULS_OXIM_SAT_O2=0x7f07006b;
+        public static final int MDC_PULS_RATE_NON_INV=0x7f070062;
+        public static final int MDC_SAT_O2_QUAL=0x7f070067;
+        public static final int MDC_TEMP_BODY=0x7f070068;
+        public static final int MDC_TIME_SYNC_NONE=0x7f070089;
+        public static final int MDC_TRIG=0x7f070078;
+        public static final int MDC_TRIG_BEAT=0x7f070079;
+        public static final int MDC_TRIG_BEAT_MAX_INRUSH=0x7f07007a;
+        /**  Error Section 
+         */
+        public static final int NO_ERROR=0x7f070035;
+        public static final int TIMEOUT=0x7f070036;
+        public static final int TIMEOUT_ASSOC=0x7f070037;
+        public static final int TIMEOUT_ASSOC_REL=0x7f070039;
+        public static final int TIMEOUT_CONFIG=0x7f070038;
+        public static final int TIMEOUT_MDS_CONF_ACION=0x7f07003a;
+        public static final int TIMEOUT_MDS_CONF_EV_REP=0x7f07003b;
+        public static final int TIMEOUT_MDS_CONF_SET=0x7f07003d;
+        public static final int TIMEOUT_MDS_GET=0x7f07003c;
+        public static final int TIMEOUT_MDS_SPECIAL=0x7f07003e;
+        public static final int TIMEOUT_PM_CONF_ACION=0x7f07003f;
+        public static final int TIMEOUT_PM_CONF_EV_REP=0x7f070040;
+        public static final int TIMEOUT_PM_CONF_SET=0x7f070042;
+        public static final int TIMEOUT_PM_GET=0x7f070041;
+        public static final int TIMEOUT_PM_SPECIAL=0x7f070043;
+        public static final int TIMEOUT_SCN_CONF_EV_REP=0x7f070045;
+        public static final int TIMEOUT_SCN_CONF_SET=0x7f070044;
+        public static final int UNEXPECTED_ERROR=0x7f070046;
+        public static final int UNKNOWN_AGENT=0x7f070047;
+        public static final int UNKNOWN_OBJECT=0x7f070049;
+        public static final int UNKNOWN_PMSTORE=0x7f07004a;
+        public static final int UNKNOWN_TYPE=0x7f070052;
+        public static final int UNKNOWN_VALUE=0x7f07008d;
         public static final int action_settings=0x7f070001;
         public static final int app_name=0x7f070000;
+        public static final int app_registration=0x7f070016;
+        public static final int bluetooth_health_profile_not_available=0x7f070018;
+        public static final int bluetooth_not_available=0x7f070017;
+        public static final int channel_connection=0x7f070019;
+        public static final int channel_connection_desc=0x7f07001a;
         public static final int city=0x7f070004;
         public static final int city_str=0x7f07000d;
+        public static final int connect=0x7f07001b;
+        public static final int connected=0x7f07001c;
+        public static final int connection_state=0x7f07001d;
+        public static final int data_ind=0x7f07001e;
+        public static final int disconnect=0x7f07001f;
+        public static final int disconnected=0x7f070020;
+        public static final int empty=0x7f070021;
         public static final int fengli=0x7f070009;
         public static final int hello_world=0x7f070002;
         public static final int jinri=0x7f070008;
         public static final int kongqi=0x7f07000b;
+        public static final int none=0x7f070022;
+        public static final int ok=0x7f070023;
         public static final int province=0x7f070005;
         public static final int qiweng=0x7f070007;
+        public static final int read_data=0x7f070024;
+        public static final int read_data_done=0x7f070025;
+        public static final int register=0x7f070026;
+        public static final int select_device=0x7f070027;
         public static final int shidu=0x7f07000a;
+        public static final int status_create_channel=0x7f070028;
+        public static final int status_destroy_channel=0x7f070029;
+        public static final int status_msg=0x7f07002a;
+        public static final int status_reg=0x7f07002b;
+        public static final int status_unreg=0x7f07002c;
         public static final int title_activity_ajahg=0x7f070015;
         public static final int title_activity_bloodpressure=0x7f070012;
         public static final int title_activity_counter=0x7f07000f;
@@ -349,6 +483,7 @@ public final class R {
         public static final int title_activity_oximeter=0x7f070011;
         public static final int title_activity_scale=0x7f070010;
         public static final int today_wea=0x7f070006;
+        public static final int unregister=0x7f07002d;
         public static final int xiaotieshi=0x7f07000e;
         public static final int zhiwai=0x7f07000c;
     }

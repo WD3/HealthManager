@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" 
-        android:name="com.pku.countermanager.Location">
+        android:name="com.pku.myApplication.MyApplication">
         <activity
             android:name="com.pku.healthmanager.MainActivity"
             android:label="@string/app_name" >
@@ -34,7 +34,7 @@
             android:label="@string/title_activity_oximeter" >
         </activity>
         <activity
-            android:name="com.pku.healthmanager.BloodpressureActivity"
+            android:name="com.pku.bloodpressuremanager.BloodpressureActivity"
             android:label="@string/title_activity_bloodpressure" >
         </activity>
         <activity

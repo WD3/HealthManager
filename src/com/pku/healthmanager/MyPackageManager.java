@@ -40,11 +40,9 @@ public class MyPackageManager {
 			intent.putExtra("type", 1);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(intent);
-			System.out.println("aaaaaaaaaa");
 		}		
 		else {
 			CounterActivity.SendMessage(CounterActivity.handler, 3);
-			System.out.println("cccccccccc");
 		}
 	}
 

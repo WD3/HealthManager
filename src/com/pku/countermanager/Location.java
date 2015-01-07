@@ -5,31 +5,30 @@ import java.util.List;
 import com.baidu.location.*;
 
 import android.app.Application;
+import android.content.Context;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.TextView;
 import android.os.Process;
 import android.os.Vibrator;
 
-public class Location extends Application {
+public class Location{
 
 	public LocationClient mLocationClient = null;
-//	public LocationClient locationClient = null;
-//	public LocationClient LocationClient = null;
-	static String mTime;  
-	static String mAddress;
-	static String mLink;
+	public String mTime;  
+	public String mAddress;
+	public String mLink;
 	public MyLocationListenner myListener = new MyLocationListenner();
 //	public MyLocationListenner listener = new MyLocationListenner();
 //	public MyLocationListenner locListener = new MyLocationListenner();
 	public TextView mTv;
-	public NotifyLister mNotifyer=null;
+//	public NotifyLister mNotifyer=null;
 	public Vibrator mVibrator01;
-	public static String TAG = "LocTestDemo";
+	public String TAG = "LocTestDemo";
 	
-	@Override
-	public void onCreate() {
-		mLocationClient = new LocationClient( this );
+	
+	public Location(Context context) {
+		mLocationClient = new LocationClient( context );
 //		locationClient = new LocationClient( this );
 //		LocationClient = new LocationClient( this );
 		mLocationClient.registerLocationListener( myListener );
@@ -40,9 +39,7 @@ public class Location extends Application {
 //		mNotifyer.SetNotifyLocation(40.047883,116.312564,3000,"gps");//4个参数代表要位置提醒的点的坐标，具体含义依次为：纬度，经度，距离范围，坐标系类型(gcj02,gps,bd09,bd09ll)
 //		mLocationClient.registerNotify(mNotifyer);
 		
-		super.onCreate(); 
 		System.out.println("开始定位");
-		Log.d(TAG, "... Application onCreate... pid=" + Process.myPid());
 	}
 	
 	
@@ -79,9 +76,9 @@ public class Location extends Application {
 
 	}
 	
-	public class NotifyLister extends BDNotifyListener{
-		public void onNotify(BDLocation mlocation, float distance){
-			mVibrator01.vibrate(1000);
-		}
-	}
+//	public class NotifyLister extends BDNotifyListener{
+//		public void onNotify(BDLocation mlocation, float distance){
+//			mVibrator01.vibrate(1000);
+//		}
+//	}
 }

@@ -4,10 +4,10 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry exported="true" kind="lib" path="D:/workspace/HealthManager/libs/ksoap2-android-assembly-2.5.2-jar-with-dependencies.jar"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="lib" path="D:/workspace/HealthManager/libs/android-support-v4.jar"/>
 	<classpathentry exported="true" kind="lib" path="D:/workspace/HealthManager/libs/locSDK_3.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="D:/workspace/HealthManager/libs/AChartEngine.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

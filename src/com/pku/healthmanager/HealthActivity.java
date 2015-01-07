@@ -9,6 +9,7 @@ package com.pku.healthmanager;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pku.bloodpressuremanager.BloodpressureActivity;
 import com.pku.countermanager.CounterActivity;
 import android.app.Activity;
 import android.app.LocalActivityManager;
@@ -46,6 +47,7 @@ public class HealthActivity extends TabActivity {
 		Intent i = getIntent();
 		// 获取数据
 		int type = i.getIntExtra("type", 0);
+		Log.e("HealthActivity", ""+type);
 		tabHost.setCurrentTab(type);
 	}
 

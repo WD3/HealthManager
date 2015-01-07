@@ -28,25 +28,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
 import android.telephony.SmsManager;
 import android.util.Log;
 
 public class CounterBluetooth {
-	public BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-	private final int CONNTECT_INTERVAL = 500;
-	private BluetoothDevice btdevice;
 	private BluetoothSocket socket;
 	private Context context;
-	private UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
 	private OutputStream os;
 	private InputStream is;
-	public static boolean exit = true;
 	private String stepshistory;
-	static int battery;
+	private int battery;
 	private String[] array;
 	private String head;
 	private String starttime;
@@ -54,100 +51,22 @@ public class CounterBluetooth {
 	private String[] array1;
 	private String detail1;
 	private String detail2;
-//	public static int percent;
-	public static boolean connected;
 
-	private String line = "";
+	private String line;
 	private String acceleration;
 	private File txtFile;
 	private File txtDir;
 	private FileOutputStream fos;
 	private Location location;
 	private MyPackageManager myPackageManager;
+	private SharedPreferences sp;
 
-	public CounterBluetooth(Context context) {
+	public CounterBluetooth(Context context, SharedPreferences sp) {
 		this.context = context;
-		myPackageManager = new MyPackageManager(context);
+		this.sp = sp;
+		myPackageManager = new MyPackageManager(context);		
 	}
-	public void connect() throws IOException {
-		Thread thread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				Looper.prepare();
-				while (exit) {
-					BluetoothManager.counter_address = MainActivity.sp.getString("counter_address", "");
-					if (BluetoothManager.counter_address != "") {
-						if (connected == false) {
-							if (!adapter.isEnabled())
-								adapter.enable();
-							btdevice = adapter.getRemoteDevice(BluetoothManager.counter_address);
-							CounterSettingActivity.SendMessage(CounterSettingActivity.handler, 1);
-						}
-						/*
-						 * try{ socket =
-						 * btdevice.createRfcommSocketToServiceRecord(uuid);
-						 * }catch(IOException e){e.printStackTrace();};
-						 */
-						try {
-							System.out.println("创建socket");
-							Method m = btdevice.getClass().getMethod("createRfcommSocket",new Class[] { int.class });
-							try {
-								socket = (BluetoothSocket) m.invoke(btdevice, 1);
-							} catch (IllegalArgumentException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (IllegalAccessException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (InvocationTargetException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						} catch (NoSuchMethodException e2) {
-							// TODO Auto-generated catch block
-							e2.printStackTrace();
-						}
-						try {
-							Log.e("开始连接", "开始连接");
-							if (adapter.isDiscovering())
-								adapter.cancelDiscovery();
-							socket.connect();
-							connected = true;
-							CounterActivity.SendMessage(CounterActivity.handler, 1);
-							myPackageManager.openCounter();
-							Log.e("连接", "连接完成");
-							sendData();
-							try {
-								Thread.sleep(3000);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							Log.e("异常", e.getMessage());
-							try {
-								socket.close();
-							} catch (IOException e1) {
-								e1.printStackTrace();
-							}
-							CounterActivity.SendMessage(CounterActivity.handler, 2);
-						}
-					}
-					try {
-						Thread.sleep(CONNTECT_INTERVAL);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-
-				Looper.loop();
-			}
-		});
-		thread.start();
-	}
-
+	
 	public void sendData() {
 		try {
 			os = socket.getOutputStream();
@@ -160,20 +79,18 @@ public class CounterBluetooth {
 			String reply = "";
 			SimpleDateFormat format = new SimpleDateFormat("MM-dd");
 			String currentday = format.format(date);
-			String originalday = MainActivity.sp.getString("currentday", "");
-			boolean slipButton1_flag = MainActivity.sp.getBoolean("智能提醒", false);
-			boolean slipButton3_flag = MainActivity.sp.getBoolean("手机提醒", false);
-			boolean slipButton4_flag = MainActivity.sp.getBoolean("SOS报警",false);
-			boolean reset = MainActivity.sp.getBoolean("reset", false);
-			int sedentariness_flag = MainActivity.sp.getInt("sedentariness_flag", 0);
-			int targetSteps_flag = MainActivity.sp.getInt("targetSteps_flag", 0);
+			String originalday = sp.getString("currentday", "");	
+			boolean counter_reset = sp.getBoolean("counter_reset", false);
+			boolean addressChanged = sp.getBoolean("counter_address_changed", false);
+			int sedentariness_flag = sp.getInt("sedentariness_flag", 0);
+			int targetSteps_flag = sp.getInt("targetSteps_flag", 0);
 			os.write("ConnectionOK\r\n".getBytes());
 			reply = breader.readLine();
 			if (reply.equals("ConnectionOK")) {
-				if (!currentday.equals(originalday) || BluetoothManager.addressChanged || reset) {
+				if (!currentday.equals(originalday) || addressChanged || counter_reset) {
 					Log.e("第一次发", "第一次发");
-					BluetoothManager.addressChanged = false;
-					MainActivity.sp.edit().putString("currentday", currentday).putBoolean("reset", false).commit();
+					sp.edit().putString("currentday", currentday).putBoolean("counter_reset", false)
+					.putBoolean("counter_address_changed", false).commit();
 					os.write(("PDM,1.0,Data,Time\r\n").getBytes());
 					reply = breader.readLine();
 					Log.e("reply1", reply);
@@ -211,7 +128,7 @@ public class CounterBluetooth {
 						os.write("ConfigurationOK\r\n".getBytes());
 					}
 				} else if (sedentariness_flag == 1 && targetSteps_flag == 1) {
-					MainActivity.sp.edit().putInt("sedentariness_flag", 0).putInt("targetSteps_flag", 0).commit();
+					sp.edit().putInt("sedentariness_flag", 0).putInt("targetSteps_flag", 0).commit();
 					Log.e("修改久坐时间和目标步数", "修改久坐时间和目标步数");
 					os.write(("PDM,1.0,Data,Sedentariness\r\n").getBytes());
 					reply = breader.readLine();
@@ -233,7 +150,7 @@ public class CounterBluetooth {
 					if (reply.equals("DATAOK"))
 						os.write("ConfigurationOK\r\n".getBytes());
 				} else if (sedentariness_flag == 1) {
-					MainActivity.sp.edit().putInt("sedentariness_flag", 0)
+					sp.edit().putInt("sedentariness_flag", 0)
 							.commit();
 					Log.e("修改久坐时间", "修改久坐时间");
 					os.write(("PDM,1.0,Data,Sedentariness\r\n").getBytes());
@@ -248,7 +165,7 @@ public class CounterBluetooth {
 					if (reply.equals("DATAOK"))
 						os.write("ConfigurationOK\r\n".getBytes());
 				} else if (targetSteps_flag == 1) {
-					MainActivity.sp.edit().putInt("targetSteps_flag", 0)
+					sp.edit().putInt("targetSteps_flag", 0)
 							.commit();
 					Log.e("修改目标步数", "修改目标步数");
 					os.write(("PDM,1.0,Data,TargetSteps\r\n").getBytes());
@@ -279,57 +196,36 @@ public class CounterBluetooth {
 						saveSteps();
 					} catch (Exception e) {
 					}
-					connected = false;
-					try {
-						Log.e("1", "连接出错啦");
-						is.close();
-						os.close();
-						socket.close();
-						CounterActivity.SendMessage(CounterActivity.handler, 2);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					CounterActivity.SendMessage(CounterActivity.handler, 2);
+					close(socket,is,os);					
 				} else if (head.contains("PDM,1.0,Command,SitTooLong")) {					
-					connected = false;
-					try {
-						Log.e("1", "连接出错啦");
-						is.close();
-						os.close();
-						socket.close();
-						CounterActivity.SendMessage(CounterActivity.handler, 2);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					CounterActivity.SendMessage(CounterActivity.handler, 2);
+					close(socket,is,os);
 				} else if (head.contains("PDM,1.0,Command,SOS")) {
 					SOS();
-					connected = false;
-					try {
-						Log.e("1", "连接出错啦");
-						is.close();
-						os.close();
-						socket.close();
-						CounterActivity.SendMessage(CounterActivity.handler, 2);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					close(socket,is,os);
 				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.e("2", "连接出错啦");
-			connected = false;
 			CounterActivity.SendMessage(CounterActivity.handler, 2);
+			close(socket,is,os);
+		}
+	}
+	private void close(BluetoothSocket socket,InputStream is, OutputStream os) {
+		if (socket != null) {
 			try {
 				is.close();
 				os.close();
 				socket.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
-
 	private byte[] intToByteArray(int integer) {
 		int byteNum = (40 - Integer.numberOfLeadingZeros(integer < 0 ? ~integer
 				: integer)) / 8;
@@ -355,7 +251,7 @@ public class CounterBluetooth {
 			for (int i = 0; i < Integer.parseInt(history[0], 10); i++) {
 				historystring[i] = format.format(datelong[i]);
 				System.out.println(historystring[i] + stepsint[i]);
-				MainActivity.sp.edit().putInt(historystring[i], stepsint[i])
+				sp.edit().putInt(historystring[i], stepsint[i])
 						.commit();
 			}
 		}
@@ -366,7 +262,7 @@ public class CounterBluetooth {
 		SimpleDateFormat format = new SimpleDateFormat("MM-dd");
 		String currentdate = format.format(date);
 		Variable.currentSteps = detail1;
-		Variable.targetSteps = MainActivity.sp.getString("运动量预设", "20000");
+		Variable.targetSteps = sp.getString("运动量预设", "20000");
 		if (Integer.parseInt(Variable.targetSteps) == 0)
 			Variable.percent = "0%";
 		else
@@ -374,23 +270,24 @@ public class CounterBluetooth {
 		System.out.println(detail1+","+Variable.percent);
 		CounterActivity.SendMessage(CounterActivity.handler, 3);
 		MainActivity.SendMessage(MainActivity.handler, 1);
-		MainActivity.sp.edit().putInt(currentdate, Integer.parseInt(detail1, 10))
+		sp.edit().putInt(currentdate, Integer.parseInt(detail1, 10))
 				.putString("hoursteps", detail2)
 				.putString("todaysteps", detail1)
 				.putString("percent", Variable.percent).commit();
-		String originaldate = MainActivity.sp.getString("originaldate", "");
+		String originaldate = sp.getString("originaldate", "");
 		if (!originaldate.equals(currentdate))
-			MainActivity.sp.edit().putString("originaldate", currentdate)
+			sp.edit().putString("originaldate", currentdate)
 					.commit();
 	}
 
 	private void SOS() {
-		String tel = MainActivity.sp.getString("紧急联系人", "");
+		String tel = sp.getString("紧急联系人", "");
 		if (CounterSettingActivity.isPhoneNumberValid(tel)) {
 			Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel://" + tel));
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(i);
-			LocationClient mLocClient = ((Location) context.getApplicationContext()).mLocationClient;
+			Location mLocation = new Location(context);			
+			LocationClient mLocClient = mLocation.mLocationClient;
 			LocationClientOption option = new LocationClientOption();
 			option.setAddrType("all");
 			option.setPriority(LocationClientOption.NetWorkFirst);
@@ -407,32 +304,32 @@ public class CounterBluetooth {
 					"yyyy-MM-dd HH:mm:ss");
 			String locationTime = format.format(date);
 			SmsManager smsManager = SmsManager.getDefault();
-			if (((Location) context.getApplicationContext()).mAddress != null) {
+			if (mLocation.mAddress != null) {
 				List<String> texts = smsManager
 						.divideMessage("时间:"
 								+ locationTime
 								+ ";地址:"
-								+ ((Location) context.getApplicationContext()).mAddress);
+								+ mLocation.mAddress);
 				for (String text : texts) {
 					smsManager.sendTextMessage(tel, null, text, null, null);
 					Log.e("sendMSG", "success");
 				}
 			}
-			if (((Location) context.getApplicationContext()).mLink != null) {
+			if (mLocation.mLink != null) {
 				List<String> text1 = smsManager
-						.divideMessage(((Location) context
-								.getApplicationContext()).mLink);
+						.divideMessage(mLocation.mLink);
 				for (String text : text1) {
 					smsManager.sendTextMessage(tel, null, text, null, null);
 				}
 			} else
 				smsManager.sendTextMessage(tel, null, "定位失败", null, null);
 			System.out.println("发送成功");
-			if (((Location) context.getApplicationContext()).mLink != null) {
-				String deviceSN = BluetoothManager.counter_address.replaceAll(":", "");
+			if (mLocation.mLink != null) {
+				String counter_address = sp.getString("counter_address", "");
+				String deviceSN = counter_address.replaceAll(":", "");
 				String time = locationTime;
-				String address = ((Location) context.getApplicationContext()).mAddress;
-				String link = ((Location) context.getApplicationContext()).mLink;
+				String address = mLocation.mAddress;
+				String link = mLocation.mLink;
 				Thread t = new AlarmThread(deviceSN, time, address, link);
 				t.start();
 				Log.e("send", deviceSN + time + address + link);

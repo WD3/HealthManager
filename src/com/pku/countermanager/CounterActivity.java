@@ -17,11 +17,13 @@ import com.pku.healthmanager.MainActivity;
 import com.pku.healthmanager.MyGestureDetector;
 import com.pku.healthmanager.R;
 import com.pku.healthmanager.Variable;
+import com.pku.myApplication.MyApplication;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.view.GestureDetector;
@@ -62,6 +64,7 @@ public class CounterActivity extends Activity implements OnClickListener{
 	private String sixthdate;
 	private String seventhdate;
 	private String eighthdate;
+	private SharedPreferences sp;
 	private GraphicalView mchartView_week;
 	private GraphicalView mchartView_day;
 	private String[] xdate = new String[7];
@@ -105,6 +108,9 @@ public class CounterActivity extends Activity implements OnClickListener{
 		linearLayoutChart = (LinearLayout)findViewById(R.id.chart);
 		mchartView_week = ChartFactory.getBarChartView(this, buildDataset(), buildRenderer(), Type.DEFAULT);
 		linearLayoutChart.addView(mchartView_week, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+		
+		MyApplication myApp = (MyApplication) getApplication();
+		sp = myApp.getSp();
 	}
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		flipper.getParent().requestDisallowInterceptTouchEvent(true);  
@@ -155,18 +161,18 @@ public class CounterActivity extends Activity implements OnClickListener{
 		}
 	};
 	public void display(){
-		String originaldate = MainActivity.sp.getString("originaldate", "");
+		String originaldate = sp.getString("originaldate", "");
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("MM-dd");
 		String currentdate = format.format(date);
 		if(!currentdate.equals(originaldate)){
-			MainActivity.sp.edit().putString("originaldate", currentdate)
+			sp.edit().putString("originaldate", currentdate)
 			.putString("todaysteps","0").putString("hoursteps", "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
 			.putString("percent", "0%").commit();
 		}			
-		Variable.currentSteps = MainActivity.sp.getString("todaysteps", "0");
-		Variable.percent = MainActivity.sp.getString("percent","0%");
-		Variable.targetSteps = MainActivity.sp.getString("运动量预设", "20000");
+		Variable.currentSteps = sp.getString("todaysteps", "0");
+		Variable.percent = sp.getString("percent","0%");
+		Variable.targetSteps = sp.getString("运动量预设", "20000");
 		tvCurrentSteps.setText(Variable.currentSteps);
 		tvProgress.setText(Variable.percent);
 		tvTargetSteps.setText(Variable.targetSteps);
@@ -202,19 +208,19 @@ public class CounterActivity extends Activity implements OnClickListener{
 	protected XYMultipleSeriesDataset buildDataset() {
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		double[] yValues = new double[7];
-		int step6 = MainActivity.sp.getInt(seventhdate, 0);
+		int step6 = sp.getInt(seventhdate, 0);
 		yValues[6] = (double)step6;
-		int step5 = MainActivity.sp.getInt(sixthdate, 0);
+		int step5 = sp.getInt(sixthdate, 0);
 		yValues[5] = (double)step5;
-		int step4 = MainActivity.sp.getInt(fifthdate, 0);
+		int step4 = sp.getInt(fifthdate, 0);
 		yValues[4] = (double)step4;
-		int step3 = MainActivity.sp.getInt(fourthdate, 0);
+		int step3 = sp.getInt(fourthdate, 0);
 		yValues[3] = (double)step3;
-		int step2 = MainActivity.sp.getInt(thirddate, 0);
+		int step2 = sp.getInt(thirddate, 0);
 		yValues[2] = (double)step2;
-		int step1 = MainActivity.sp.getInt(twicedate, 0);
+		int step1 = sp.getInt(twicedate, 0);
 		yValues[1] = (double)step1;
-		int step0 = MainActivity.sp.getInt(firstdate, 0);
+		int step0 = sp.getInt(firstdate, 0);
 		yValues[0] = (double)step0;
 		
 		CategorySeries series = new CategorySeries("");
@@ -234,7 +240,7 @@ public class CounterActivity extends Activity implements OnClickListener{
 	    return renderer;
 	 }
 	private void setChartSettings(XYMultipleSeriesRenderer renderer) {	
-		Variable.targetSteps = MainActivity.sp.getString("运动量预设", "20000");
+		Variable.targetSteps = sp.getString("运动量预设", "20000");
 	    renderer.setChartTitle( "" );
 	    renderer.setXTitle( "日期" );
 	    renderer.setYTitle( "步数" );
@@ -267,7 +273,7 @@ public class CounterActivity extends Activity implements OnClickListener{
 	 }
 	protected XYMultipleSeriesDataset buildDataset2() {
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		String hoursteps = MainActivity.sp.getString("hoursteps", "");
+		String hoursteps = sp.getString("hoursteps", "");
 		if(hoursteps == "")
 			hoursteps = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 //		Log.e("hourstepString", hoursteps);
@@ -295,7 +301,7 @@ public class CounterActivity extends Activity implements OnClickListener{
 	    return renderer2;
 	 }
 	private void setChartSettings2(XYMultipleSeriesRenderer renderer2) {
-		Variable.targetSteps = MainActivity.sp.getString("运动量预设", "20000");
+		Variable.targetSteps = sp.getString("运动量预设", "20000");
 	    renderer2.setChartTitle( "" );
 	    renderer2.setXTitle( "日期" );
 	    renderer2.setYTitle( "步数" );

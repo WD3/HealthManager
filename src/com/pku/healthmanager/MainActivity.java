@@ -3,13 +3,16 @@ package com.pku.healthmanager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
 import com.pku.calendar.CalendarLunar;
 import com.pku.calendar.CalendarUtil;
 import com.pku.calendar.CalendarView;
 import com.pku.calendar.NumberHelper;
 import com.pku.countermanager.CounterSettingActivity;
+import com.pku.myApplication.MyApplication;
 import com.pku.weather.WeatherWebService;
 
+import android.app.Application;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -52,7 +55,7 @@ public class MainActivity extends TabActivity implements OnClickListener{
 	private LinearLayout monthLayout;
 	private CalendarView calendarView;
 	private CalendarLunar calendarLunar;
-	public static SharedPreferences sp;
+	private SharedPreferences sp;
 	private WeatherWebService weatherWebService;
 
 	@Override
@@ -118,8 +121,9 @@ public class MainActivity extends TabActivity implements OnClickListener{
 		calendarView = new CalendarView(this,home);
 		calendarLunar = new CalendarLunar();
 		weatherWebService = new WeatherWebService(home,this);
-		sp = PreferenceManager.getDefaultSharedPreferences(this);	
-		this.startService(new Intent(this,PlayService.class));
+		MyApplication myApp = (MyApplication) getApplication();
+		sp = myApp.getSp();	
+		this.startService(new Intent(this,PlayService.class));		
 	}
 	public void onStart(){
 		super.onStart();		
@@ -149,22 +153,22 @@ public class MainActivity extends TabActivity implements OnClickListener{
 			break;
 		case R.id.bloodpressure:
 			Intent i1 = new Intent(this,HealthActivity.class);
-			i1.putExtra("type", 0);
+			i1.putExtra("type", 1);
 			this.startActivity(i1);
 			break;
 		case R.id.counter:
 			Intent i2 = new Intent(this,HealthActivity.class);
-			i2.putExtra("type", 1);
+			i2.putExtra("type", 2);
 			this.startActivity(i2);
 			break;
 		case R.id.scale:
 			Intent i3 = new Intent(this,HealthActivity.class);
-			i3.putExtra("type", 2);
+			i3.putExtra("type", 3);
 			this.startActivity(i3);
 			break;		
 		case R.id.oximeter:
 			Intent i4 = new Intent(this,HealthActivity.class);
-			i4.putExtra("type", 3);
+			i4.putExtra("type", 4);
 			this.startActivity(i4);
 			break;
 		case R.id.counter_setting:
@@ -199,17 +203,17 @@ public class MainActivity extends TabActivity implements OnClickListener{
 		tv_cyclical.setText("农历："+CalendarUtil.cyclical(date.getYear()+1900)+"年 "+CalendarUtil.cyclicalm(date.getMonth())+"月");
 		tv_lunar.setText(calendarLunar.getLunarCalendar(date));
 		
-		String originaldate = MainActivity.sp.getString("originaldate", "");
+		String originaldate = sp.getString("originaldate", "");
 		Date mDate = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("MM-dd");
 		String currentdate = format.format(mDate);
 		if(!currentdate.equals(originaldate)){
-			MainActivity.sp.edit().putString("originaldate", currentdate)
+			sp.edit().putString("originaldate", currentdate)
 			.putString("todaysteps","0").putString("hoursteps", "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
 			.putString("percent", "0%").commit();
 		}			
-		Variable.currentSteps = MainActivity.sp.getString("todaysteps", "0");
-		Variable.percent = MainActivity.sp.getString("percent","0%");
+		Variable.currentSteps = sp.getString("todaysteps", "0");
+		Variable.percent = sp.getString("percent","0%");
 		tv_currentSteps.setText(Variable.currentSteps);
 		tv_progress.setText(Variable.percent);		
 	}
